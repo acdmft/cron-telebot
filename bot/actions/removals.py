@@ -27,6 +27,7 @@ async def reset_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 async def remove_job(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     db_service = mongo.MongoService(update)
     rights = await permissions.check_rights(update, context, db_service)
+    print(f"remove_job rights - {rights}")
     if not rights:
         return
 

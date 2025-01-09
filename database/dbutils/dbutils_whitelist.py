@@ -5,7 +5,7 @@ from typing import Tuple
 
 def get_user_limit(db_service, user_id) -> Tuple[int, int]:
     current_job_count = dbutils.count_entries_by_userid(db_service, user_id)
-
+    print("print: get_user_limit")
     q = {"user_id": float(user_id), "removed_ts": ""}
     result = db_service.find_one_whitelist(q)
 

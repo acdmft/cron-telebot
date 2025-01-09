@@ -17,6 +17,7 @@ async def add_new_job(
 ) -> Optional[Exception]:
     db_service = mongo.MongoService(update)
     rights = await permissions.check_rights(update, context, db_service)
+    print(f"print: actions/add_new_job rights - {rights}")
     if not rights:
         return Exception()
 
