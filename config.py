@@ -10,7 +10,7 @@ TZ_OFFSET = 8.0  # (UTC+08:00)
 JOB_LIMIT_PER_PERSON = 10
 BATCH_SIZE = 100  # Max number of messages to send at any given time
 RETRIES = 1  # Number of retries if message fails to send
-BOT_NAME = "@stgmft_asr_bot" #"@cron_telebot"
+BOT_NAME = getenv("TG_BOT_USERNAME") #"@cron_telebot"
 
 """ Telegram config """
 TELEGRAM_BOT_TOKEN = getenv("TELEGRAM_BOT_TOKEN")
