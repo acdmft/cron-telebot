@@ -10,7 +10,7 @@ TZ_OFFSET = 8.0  # (UTC+08:00)
 JOB_LIMIT_PER_PERSON = 10
 BATCH_SIZE = 100  # Max number of messages to send at any given time
 RETRIES = 1  # Number of retries if message fails to send
-BOT_NAME = "@cron_telebot"
+BOT_NAME = "@stgmft_asr_bot" #"@cron_telebot"
 
 """ Telegram config """
 TELEGRAM_BOT_TOKEN = getenv("TELEGRAM_BOT_TOKEN")
@@ -29,4 +29,4 @@ MONGODB_USER_WHITELIST_COLLECTION = "whitelist"
 INFLUXDB_TOKEN = getenv("INFLUXDB_TOKEN")
 INFLUXDB_ORG = "main"
 INFLUXDB_BUCKET = "prod"
-INFLUXDB_HOST = "https://eu-central-1-1.aws.cloud2.influxdata.com"
+INFLUXDB_HOST = "https://us-east-1-1.aws.cloud2.influxdata.com"

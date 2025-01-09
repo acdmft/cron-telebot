@@ -71,6 +71,7 @@ if config.ENV:
 
     @app.post("/")
     async def process_update(request: Request):
+        print("print: process_update")
         req = await request.json()
         update = Update.de_json(req, ptb.bot)
         await ptb.process_update(update)

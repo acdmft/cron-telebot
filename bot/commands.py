@@ -33,6 +33,7 @@ async def checkcron(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def add(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message when the command /add is issued."""
+    print("print: add")
     db_service = mongo.MongoService(update)
 
     # timezone must be defined in order to create new job
@@ -81,6 +82,7 @@ async def delete(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
 
     entries = dbutils.find_entries_by_chatid(db_service, update.message.chat.id)
+    print(f"print: delete entries - {entries}")
     if len(entries) <= 0:
         return await replies.send_simple_prompt_message(update)
 
@@ -95,6 +97,7 @@ async def list_jobs(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
 
     entries = dbutils.find_entries_by_chatid(db_service, update.message.chat.id)
+    print(f"print: list_jobs entries - {entries}")
     if len(entries) <= 0:
         return await replies.send_simple_prompt_message(update)
 

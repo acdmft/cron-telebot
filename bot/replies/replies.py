@@ -105,6 +105,7 @@ async def send_simple_prompt_message(update: Update) -> None:
 
 async def send_delete_message(update: Update, entries: List[Optional[Any]]) -> None:
     keyboard = prepare_keyboard(entries)
+    print(f"print send_delete_message entries - {entries}")
     reply_markup = ReplyKeyboardMarkup(
         keyboard, one_time_keyboard=True, resize_keyboard=True
     )

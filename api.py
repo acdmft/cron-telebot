@@ -47,7 +47,7 @@ def prom_endpoint() -> Response:
 @app.post("/api")
 def run() -> Response:
     db_service = mongo.MongoService()
-
+    print("print: run /api")
     now = datetime.now(timezone(timedelta(hours=config.TZ_OFFSET)))
     parsed_time = utils.parse_time_mins(now)
     entries = dbutils.find_entries_by_nextrun(db_service, parsed_time)
@@ -66,6 +66,7 @@ def run() -> Response:
 
     gc.collect()  # https://github.com/googleapis/google-api-python-client/issues/535
     if config.INFLUXDB_TOKEN:
+        print(f"print: save_msg_count{entry_count}")
         dbutils.save_msg_count(entry_count)
     log.log_completion(entry_count)
     return Response(status_code=HTTPStatus.OK)
@@ -90,6 +91,7 @@ def batch_jobs(db_service: mongo.MongoService, entries: list, parsed_time: str) 
 def process_job(
     db_service: mongo.MongoService, entry: Optional[Any], parsed_time: str
 ) -> None:
+    print("print: process_job")
     job_id = entry["_id"]
     channel_id = entry.get("channel_id", "")
     chat_id = entry.get("chat_id", "")
@@ -152,6 +154,7 @@ def send_message(
     user_bot_token: str,
     message_thread_id: int,
 ):
+    print("print: send_message")
     if photo_group_id != "":  # media group
         resp = teleapi.send_media_group(
             chat_id, photo_id, content, user_bot_token, message_thread_id
