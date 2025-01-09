@@ -15,6 +15,7 @@ state0, state1 = range(2)
 
 # state 0
 async def choose_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    print("print: choose_chat")
     db_service = mongo.MongoService(update)
     chat_title = str(update.message.text)
     user_id = update.message.from_user.id

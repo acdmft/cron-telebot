@@ -56,6 +56,7 @@ reset_photos_confirmation_message = "This will clear ALL photos for this job. Pr
 def prepare_keyboard(
     entries: List[Optional[Any]], field: str = "jobname"
 ) -> Sequence[Sequence[Union[str, KeyboardButton]]]:
+    print("print: prepare_keyboard")
     keyboard = []
     for i, entry in enumerate(entries):
         if i % 2 == 0:
@@ -66,6 +67,7 @@ def prepare_keyboard(
 
 
 async def send_start_message(update: Update) -> None:
+    print("print: send_start_message")
     await update.message.reply_text(
         reply_markup=ForceReply(selective=True),
         text=start_message,

@@ -14,6 +14,7 @@ field = "message_count"
 
 
 def save_msg_count(message_count: int) -> None:
+    print("print: save_msg_count")
     point = Point(measurement).field(field, message_count)
     client.write(record=point)
     log.log_influx_resp(measurement, field, message_count)

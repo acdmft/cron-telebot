@@ -34,6 +34,7 @@ attrs = [
 async def choose_job(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     db_service = mongo.MongoService(update)
     jobname = str(update.message.text)
+    print("print: choose_job")
 
     if not dbutils.entry_exists(db_service, update.message.chat.id, jobname):
         await replies.send_error_message(update)
@@ -48,6 +49,7 @@ async def choose_job(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 async def choose_attribute(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     attr = str(update.message.text)
     context.user_data["attribute"] = attr
+    print("print: choose_attribute")
 
     if attr not in attrs:
         await replies.send_error_message(update)

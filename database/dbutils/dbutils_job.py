@@ -13,6 +13,7 @@ Getters
 
 def find_latest_entry(db_service: MongoService, chat_id: int) -> Optional[Any]:
     q = {"chat_id": float(chat_id), "removed_ts": ""}
+    print(f"print: find_latest_entry chat_id - {chat_id}")
     result = db_service.find_entries(q, [("created_ts", DESCENDING)])
     if len(result) <= 0:
         return None
@@ -22,6 +23,7 @@ def find_latest_entry(db_service: MongoService, chat_id: int) -> Optional[Any]:
 def find_entry_by_jobname(
     db_service: MongoService, chat_id: int, jobname: str, include_removed: bool = False
 ) -> Optional[Any]:
+    print(f"print: find_entry_by_jobname include_removed - {include_removed}")
     q = {"chat_id": float(chat_id), "jobname": jobname}
     if not include_removed:
         q["removed_ts"] = ""
@@ -34,6 +36,7 @@ def find_entries_removed_between(
     end_ts: str,
     err_status: Optional[int] = None,
 ) -> List[Optional[Any]]:
+    print("print: find_entries_removed_between")
     q = {"removed_ts": {"$gte": start_ts, "$lte": end_ts}}
     if err_status is not None:
         q["errors.error"] = {"$regex": f"^Error {err_status}"}
@@ -41,6 +44,7 @@ def find_entries_removed_between(
 
 
 def find_entries_by_nextrun(db_service: MongoService, ts: str) -> List[Optional[Any]]:
+    print("print: find_entries_by_nextrun")
     base_q = {"nextrun_ts": {"$lte": ts}, "removed_ts": "", "crontab": {"$ne": ""}}
     # Only return messages that are not pending, or pending for more than 5 mins.
     base_q["$or"] = [{"pending_ts": None}, {"pending_ts": {"$lte": utils.now(-5)}}]
@@ -56,6 +60,7 @@ def find_entries_by_nextrun(db_service: MongoService, ts: str) -> List[Optional[
 def find_entries_by_content_type(
     db_service: MongoService, chat_id: int, content_type: str = ContentType.PHOTO.value
 ) -> List[Optional[Any]]:
+    print(f"print: find_entries_by_content_type chat_id - {chat_id}")
     q = {
         "$or": [{"chat_id": chat_id}, {"channel_id": chat_id}],
         "removed_ts": "",
@@ -67,12 +72,14 @@ def find_entries_by_content_type(
 def find_entries_by_chatid(
     db_service: MongoService, chat_id: int
 ) -> List[Optional[Any]]:
+    print(f"print: find_entries_chat_id chat_id - {chat_id}")
     q = {"chat_id": float(chat_id), "removed_ts": ""}
     return db_service.find_entries(q)
 
 
 def count_entries_by_userid(db_service: MongoService, user_id: int) -> int:
     q = {"created_by": user_id, "removed_ts": ""}
+    print(f"print: find_entries_by_user_id user_id - {user_id}")
     return db_service.count_entries(q)
 
 
@@ -127,7 +134,7 @@ def add_new_entry(
             "errors": errors,
         }
     )
-
+    print(f"print: add_new_entry jobname - {jobname}")
     log.log_new_entry(jobname, chat_id)
 
 

@@ -10,6 +10,7 @@ from database import mongo
 
 
 def get_bot_details(user_bot_token: str) -> requests.Response:
+    print("print: get_bot_details")
     endpoint = "https://api.telegram.org/bot{}/getMe".format(user_bot_token)
     return requests.get(endpoint)
 
@@ -106,6 +107,7 @@ def send_poll(
 def send_text(
     chat_id: int, content: str, user_bot_token: str, message_thread_id: int
 ) -> requests.Response:
+    print(f"send_text content - {content}")
     query = {
         "chat_id": chat_id,
         "text": content,
@@ -122,6 +124,7 @@ def send_text(
 def delete_message(
     chat_id: int, previous_message_id: str, user_bot_token: Optional[str] = None
 ) -> Any:
+    print("print: delete_message")
     if user_bot_token is None:
         user_bot_token = TELEGRAM_BOT_TOKEN
     for message_id in str(previous_message_id).split(";"):
